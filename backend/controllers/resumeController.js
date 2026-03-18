@@ -21,32 +21,34 @@ exports.getResumeHistory = async (req, res) => {
 exports.uploadResume = async (req, res) => {
   try {
 
-    const filePath = req.file.buffer;
+    if (!req.file) {
+      return res.status(400).json({ error: "No file uploaded" });
+    }
 
-    const dataBuffer = fs.readFileSync(filePath);
-
-    const data = await pdf(dataBuffer);
+    // ✅ DIRECT BUFFER USE KARO
+    const data = await pdf(req.file.buffer);
 
     const resumeText = data.text;
 
     const analysis = await analyzeResume(resumeText);
 
     const newResume = new Resume({
-  fileName: req.file.filename,
-  ATS_score: analysis.ATS_score,
-  strengths: analysis.strengths,
-  missing_skills: analysis.missing_skills,
-  improvements: analysis.improvements
-});
+      fileName: req.file.originalname, // ✅ filename fix
+      ATS_score: analysis.ATS_score,
+      strengths: analysis.strengths,
+      missing_skills: analysis.missing_skills,
+      improvements: analysis.improvements
+    });
 
-await newResume.save();
+    await newResume.save();
 
     res.json({
-  message: "Resume uploaded and analyzed",
-  analysis
-});
+      message: "Resume uploaded and analyzed",
+      analysis
+    });
 
   } catch (error) {
+    console.log(error); // 👈 important for debugging
     res.status(500).json({ error: error.message });
   }
 };
