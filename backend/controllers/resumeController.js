@@ -21,7 +21,7 @@ exports.getResumeHistory = async (req, res) => {
 exports.uploadResume = async (req, res) => {
   try {
 
-    const filePath = req.file.path;
+    const filePath = req.file.buffer;
 
     const dataBuffer = fs.readFileSync(filePath);
 
