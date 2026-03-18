@@ -19,7 +19,7 @@ function UploadResume() {
       setLoading(true);
 
       const res = await axios.post(
-        "http://localhost:5000/api/resume/upload",
+        "https://resume-review-ai.onrender.com/api/resume/upload",
         formData,
         {
           headers: { Authorization: `Bearer ${token}` },
