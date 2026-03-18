@@ -10,7 +10,7 @@ function Dashboard() {
         const token = localStorage.getItem("token");
 
         const res = await axios.get(
-          "http://localhost:5000/api/resume/history",
+          "https://resume-review-ai.onrender.com/api/resume/history",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
