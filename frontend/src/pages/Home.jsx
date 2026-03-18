@@ -66,7 +66,7 @@ export default function Home() {
 
       {/* Footer */}
       <div className="text-center mt-20 pb-10 text-gray-500">
-        © 2026 ResumeAI. All rights reserved.
+        © 2026 ResumeAI. All rights reserved. created by Vivek-Kumar
       </div>
 
     </div>
